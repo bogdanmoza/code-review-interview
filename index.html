@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Booking app</title>
+</head>
+<body>
+	<div class="events">
+	{% for event in events %}
+		<div event-name="{{event.name}}"> {{ event.name }}</div>
+		<div> {{ event.when }}</div>
+		<div> {{ event.location | raw }}</div>
+		<div> {{ event.description | raw }}</div>
+	{% endif %}
+	</div>
+	<script type="text/javascript" src="bookingevents.js"></script>
+	<script type="text/javascript">
+		let privatekey = 'OPYtBGhASBNbIpztiEWnTsGNlfyVqcUr'
+		$.ajax({
+		    url: 'ourwebsite.com/updates',
+		    type: "POST",
+			data: { 
+				privatekey: privatekey 
+			 },
+			success: function(data) {
+				CalendarManager.UpdateEventUi(data)
+			}
+		});		
+
+    const eventNames = document.querySelector('[event-name]')
+
+    eventNames.addEventListener('click', function (e) {
+      bookingevents.showTooltip(e.target);
+    });
+​
+	</script>
+</body>
+</html>
